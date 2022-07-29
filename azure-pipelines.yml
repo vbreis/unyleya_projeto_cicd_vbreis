@@ -30,4 +30,15 @@ steps:
     jdkVersionOption: '1.11'
     mavenOptions: '-Dspring-boot.build-image.imageName=vbreis/unyleya_projeto_cicd_vbreis'
 
+- task: CmdLine@2
+  inputs:
+    script: 'docker image ls'
 
+- task: Docker@0
+  displayName: 'Push docker image'
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: 'Docker Hub'
+    action: 'Push an image'
+    imageName: 'vbreis/unyleya_projeto_cicd_vbreis:latest'
+    includeLatestTag: true
